@@ -33,6 +33,20 @@ class Register_page {
         await this.buttonREGISTAR.click();
     }
 
+    async RegisterErrado(NAME, EMAIL, PASSWORD, CONFIRM_PASSWORD) {
+        const name = NAME
+        const email = EMAIL
+        const password = PASSWORD
+        const confirm_password = CONFIRM_PASSWORD
+
+
+        await this.inputfieldNOME.fill(name);
+        await this.inputfieldEMAIL.fill(email);
+        await this.inputfieldSENHA.fill(password);
+        await this.inputfieldCONFIRMAR_SENHA.fill(confirm_password);
+        await this.buttonREGISTAR.click();
+    }
+
     async Go_LogIn_Page() {
         await this.buttonFACA_LOGIN.click();
     }

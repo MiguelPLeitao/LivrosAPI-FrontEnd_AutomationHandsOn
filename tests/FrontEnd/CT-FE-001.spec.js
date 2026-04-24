@@ -8,20 +8,20 @@ test('CT-FE-001: Fluxo Completo de Registo', async ({ page }) => {
 
   await page.goto('http://localhost:3000/registro.html');
 
-  await registerpage.Register();
-
   page.once('dialog', async dialog => {
     expect(dialog.message()).toBe('Conta criada com sucesso!');
     await dialog.accept();
   });
 
-  expect(page.url()).toBe('http://localhost:3000/login.html');
+  await registerpage.Register();
+
+  await expect(page).toHaveURL('http://localhost:3000/login.html');
 
   await page.goto('http://localhost:3000/registro.html');
 
-  expect(await registerpage.inputfieldNOME.inputValue()).toBe("");
-  expect(await registerpage.inputfieldEMAIL.inputValue()).toBe("");
-  expect(await registerpage.inputfieldSENHA.inputValue()).toBe("");
-  expect(await registerpage.inputfieldCONFIRMAR_SENHA.inputValue()).toBe("");
+  await expect(await registerpage.inputfieldNOME.inputValue()).toBe("");
+  await expect(await registerpage.inputfieldEMAIL.inputValue()).toBe("");
+  await expect(await registerpage.inputfieldSENHA.inputValue()).toBe("");
+  await expect(await registerpage.inputfieldCONFIRMAR_SENHA.inputValue()).toBe("");
 
 });
