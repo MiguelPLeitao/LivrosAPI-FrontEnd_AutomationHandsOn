@@ -8,7 +8,7 @@ test('CT-FE-001: Fluxo Completo de Registo', async ({ page }) => {
 
   await page.goto('http://localhost:3000/registro.html');
 
-  await registerpage.Register("Carlos Oliveira", "carlos@teste.com", "senha123");
+  await registerpage.Register();
 
   page.once('dialog', async dialog => {
     expect(dialog.message()).toBe('Conta criada com sucesso!');
