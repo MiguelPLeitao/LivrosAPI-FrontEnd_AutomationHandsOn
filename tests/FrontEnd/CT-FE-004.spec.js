@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import LogIn_page from '../../page_objects_POM/LogIn_page';
 
-test('CT-FE-004: Log In Inválido', async ({ page }) => {
+test('CT-FE-004: Invalid Log In', async ({ page }) => {
     const loginpage = new LogIn_page(page);
 
     await page.goto('http://localhost:3000/login.html');

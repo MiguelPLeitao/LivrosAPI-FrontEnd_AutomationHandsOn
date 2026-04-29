@@ -1,3 +1,4 @@
+import { th } from '@faker-js/faker';
 import { test, expect } from '@playwright/test';
 
 class Dashboard_page {
@@ -11,8 +12,11 @@ class Dashboard_page {
         this.fieldTOTALBOOKS = page.locator("//div[@class='stat-card'][.//h3[contains(text(),'Total de Livros')]]//div[@class='number']");
         this.fieldTOTALPAGES = page.locator("//div[@class='stat-card'][.//h3[contains(text(),'Total de Páginas')]]//div[@class='number']");
         this.fieldNUMBERUSERS = page.locator("//div[@class='stat-card'][.//h3[contains(text(),'Usuários Cadastrados')]]//div[@class='number']");
-        this.buttonBOOK1 = page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").first();
-        this.buttonBOOK2 = page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").second();
+        this.buttonBOOK1 = page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").nth(0);
+        this.buttonBOOK2 = page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").nth(1);
+        this.buttonBOOK3 = page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").nth(2);
+        this.buttonBOOK4 = page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").nth(3);
+        this.buttonBOOK5 = page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").nth(4);
 
         this.buttonDASHBOARD = page.getByRole('link', { name: 'Dashboard' });
         this.buttonMANAGEBOOKS = page.getByRole('link', { name: 'Gerenciar Livros' });
@@ -46,6 +50,18 @@ class Dashboard_page {
 
     async Click_Book2() {
         await this.buttonBOOK2.click();
+    }
+
+    async Click_Book3() {
+        await this.buttonBOOK3.click();
+    }
+
+    async Click_Book4() {
+        await this.buttonBOOK4.click();
+    }
+
+    async Click_Book5() {
+        await this.buttonBOOK5.click();
     }
 
 }

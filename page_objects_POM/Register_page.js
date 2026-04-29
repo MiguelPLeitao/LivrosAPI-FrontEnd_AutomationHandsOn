@@ -31,6 +31,7 @@ class Register_page {
         await this.inputfieldSENHA.fill(password);
         await this.inputfieldCONFIRMAR_SENHA.fill(password);
         await this.buttonREGISTAR.click();
+        return { name, email, password };
     }
 
     async RegisterErrado(NAME, EMAIL, PASSWORD, CONFIRM_PASSWORD) {

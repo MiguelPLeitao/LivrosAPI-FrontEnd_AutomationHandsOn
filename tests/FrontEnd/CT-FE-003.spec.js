@@ -4,7 +4,7 @@ import LogIn_page from '../../page_objects_POM/LogIn_page';
 import Dashboard_page from '../../page_objects_POM/Dashboard_page';
 
 
-test('CT-FE-003: Log In com Sucesso', async ({ page }) => {
+test('CT-FE-003: Successful Log In', async ({ page }) => {
     const loginpage = new LogIn_page(page);
     const dashboardpage = new Dashboard_page(page);
 
