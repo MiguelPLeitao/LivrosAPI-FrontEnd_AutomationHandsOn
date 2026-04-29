@@ -1,5 +1,3 @@
-import { th } from '@faker-js/faker';
-import { test, expect } from '@playwright/test';
 
 class Dashboard_page {
 

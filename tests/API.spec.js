@@ -215,7 +215,7 @@ test('CT-API-006/007: Check one random existing book in database and Check one n
   const randomBook = body8[randomIndex];
   const VALIDbookID = randomBook.id;
   const lastBook = body8[body8.length - 1];
-  const INVALIDbookID = lastBook.id + 1;
+  const INVALIDbookID = lastBook.id + 2;
 
   //Search for a specific book by random ID from database
   let response9 = await request.get(`http://localhost:3000/livros/${VALIDbookID}`);

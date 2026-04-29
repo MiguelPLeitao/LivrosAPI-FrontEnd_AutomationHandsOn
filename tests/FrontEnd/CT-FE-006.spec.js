@@ -46,7 +46,7 @@ test('CT-FE-006: Access and View Dashboard and Statistics', async ({ page }) => 
 
     //formato das estatísticas está correto (números)
     const totalBooks = Number(await dashboardpage.fieldTOTALBOOKS.textContent());
-    const totalPages = Number(await dashboardpage.fieldTOTALPAGES.textContent());
+    const totalPages = Number((await dashboardpage.fieldTOTALPAGES.textContent()).replace(/,/g, '').trim());
     const totalUsers = Number(await dashboardpage.fieldNUMBERUSERS.textContent());
 
     expect(Number.isInteger(totalBooks)).toBe(true);
