@@ -13,7 +13,7 @@ test('CT-FE-001: Successful Register', async ({ page }) => {
     await dialog.accept();
   });
 
-  await registerpage.Register();
+  const user1 = await registerpage.Register();
 
   await expect(page).toHaveURL('http://localhost:3000/login.html');
 

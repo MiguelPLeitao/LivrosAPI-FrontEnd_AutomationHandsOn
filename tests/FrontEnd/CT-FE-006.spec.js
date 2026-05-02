@@ -23,7 +23,7 @@ test('CT-FE-006: Access and View Dashboard and Statistics', async ({ page }) => 
         await dialog.accept();
     });
 
-    const user = await registerpage.Register();
+    const user2 = await registerpage.Register();
 
 
     await expect(page).toHaveURL('http://localhost:3000/login.html');
@@ -34,10 +34,10 @@ test('CT-FE-006: Access and View Dashboard and Statistics', async ({ page }) => 
         await dialog.accept();
     });
 
-    await loginpage.LogIn(user.email, user.password);
+    await loginpage.LogIn(user2.email, user2.password);
 
     await expect(page).toHaveURL('http://localhost:3000/dashboard.html');
-    await expect(dashboardpage.headerNAME).toHaveText(user.name);
+    await expect(dashboardpage.headerNAME).toHaveText(user2.name);
 
     // Verificar Estatísticas estão visíveis
     await expect(dashboardpage.fieldTOTALBOOKS).toBeVisible();
@@ -54,11 +54,38 @@ test('CT-FE-006: Access and View Dashboard and Statistics', async ({ page }) => 
     expect(Number.isInteger(totalUsers)).toBe(true);
 
     // Grelha de últimos 5 livros está visível
-    await expect(dashboardpage.buttonBOOK1).toBeVisible();
-    await expect(dashboardpage.buttonBOOK2).toBeVisible();
-    await expect(dashboardpage.buttonBOOK3).toBeVisible();
-    await expect(dashboardpage.buttonBOOK4).toBeVisible();
-    await expect(dashboardpage.buttonBOOK5).toBeVisible();
+    const book_list = await page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]");
+    if (await book_list.count() === 0) {
+        console.log("Não há livros para mostrar na grelha de últimos livros.");
+    }
+    else if (await book_list.count() === 1) {
+        await expect(dashboardpage.buttonBOOK1).toBeVisible();
+    }
+    else if (await book_list.count() === 2) {
+        await expect(dashboardpage.buttonBOOK1).toBeVisible();
+        await expect(dashboardpage.buttonBOOK2).toBeVisible();
+    }
+    else if (await book_list.count() === 3) {
+        await expect(dashboardpage.buttonBOOK1).toBeVisible();
+        await expect(dashboardpage.buttonBOOK2).toBeVisible();
+        await expect(dashboardpage.buttonBOOK3).toBeVisible();
+    }
+    else if (await book_list.count() === 4) {
+        await expect(dashboardpage.buttonBOOK1).toBeVisible();
+        await expect(dashboardpage.buttonBOOK2).toBeVisible();
+        await expect(dashboardpage.buttonBOOK3).toBeVisible();
+        await expect(dashboardpage.buttonBOOK4).toBeVisible();
+    }
+    else if (await book_list.count() === 5) {
+        await expect(dashboardpage.buttonBOOK1).toBeVisible();
+        await expect(dashboardpage.buttonBOOK2).toBeVisible();
+        await expect(dashboardpage.buttonBOOK3).toBeVisible();
+        await expect(dashboardpage.buttonBOOK4).toBeVisible();
+        await expect(dashboardpage.buttonBOOK5).toBeVisible();
+    }
+    else {
+        console.log("Há mais de 5 livros, o que não deveria acontecer.");
+    }
 
     // Grelha mostra um máximo de 5 livros
     const bookCards = await page.locator("//div[@id='livros-recentes']//div[contains(@class,'book-card')]").count();

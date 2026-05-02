@@ -1,10 +1,5 @@
 import { faker } from '@faker-js/faker';
 
-const ValidUser = {
-    name: faker.person.fullName(),
-    email: faker.internet.email(),
-    password: faker.internet.password({ length: 12 }),
-}
 
 class Register_page {
 
@@ -21,9 +16,9 @@ class Register_page {
 
     //Ações-Métodos na página de Registo
     async Register(NAME, EMAIL, PASSWORD) {
-        const name = NAME || ValidUser.name;
-        const email = EMAIL || ValidUser.email;
-        const password = PASSWORD || ValidUser.password;
+        const name = NAME || faker.person.fullName();
+        const email = EMAIL || faker.internet.email();
+        const password = PASSWORD || faker.internet.password({ length: 12 });
 
 
         await this.inputfieldNOME.fill(name);

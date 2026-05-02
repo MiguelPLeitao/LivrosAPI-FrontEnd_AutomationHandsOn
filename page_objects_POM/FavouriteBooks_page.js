@@ -9,16 +9,17 @@ class FavouriteBooks_page {
         this.buttonMYFAVOURITES = page.getByRole('link', { name: 'Meus Favoritos' });
         this.buttonEXIT = page.getByRole('button', { name: 'Sair' });
 
-        this.buttonBOOK1 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(0);
-        this.buttonBOOK2 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(1);
-        this.buttonBOOK3 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(2);
-        this.buttonBOOK4 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(3);
-        this.buttonBOOK5 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(4);
-        this.buttonBOOK6 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(5);
-        this.buttonBOOK7 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(6);
-        this.buttonBOOK8 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(7);
-        this.buttonBOOK9 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(8);
-        this.buttonBOOK10 = page.locator("//div[@id='lista-livros']//div[contains(@class,'book-card')]").nth(9);
+        this.textNO_BOOKS = page.getByText('Você ainda não tem livros');
+        this.buttonBOOK1 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(0);
+        this.buttonBOOK2 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(1);
+        this.buttonBOOK3 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(2);
+        this.buttonBOOK4 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(3);
+        this.buttonBOOK5 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(4);
+        this.buttonBOOK6 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(5);
+        this.buttonBOOK7 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(6);
+        this.buttonBOOK8 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(7);
+        this.buttonBOOK9 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(8);
+        this.buttonBOOK10 = page.locator("//div[@id='lista-favoritos']//div[contains(@class,'book-card')]").nth(9);
 
     }
 

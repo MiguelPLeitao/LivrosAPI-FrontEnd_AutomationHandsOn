@@ -1,12 +1,5 @@
 import { faker } from '@faker-js/faker';
 
-const ValidBook = {
-    book_name: faker.book.title(),
-    author: faker.book.author(),
-    pageCount: faker.number.int({ min: 10, max: 1000 }),
-    book_description: faker.lorem.paragraph(),
-    book_image: faker.image.url(),
-}
 
 class Book_List_Add_page {
 
@@ -40,11 +33,11 @@ class Book_List_Add_page {
 
     //Ações-Métodos na página de Registo
     async Add_Book(TITLE, AUTHOR, PAGE_COUNT, IMAGE_URL) {
-        const title = TITLE || ValidBook.book_name;
-        const author = AUTHOR || ValidBook.author;
-        const pageCount = PAGE_COUNT || ValidBook.pageCount;
-        const description = ValidBook.book_description;
-        const imageUrl = IMAGE_URL || ValidBook.book_image;
+        const title = TITLE || faker.book.title();
+        const author = AUTHOR || faker.book.author();
+        const pageCount = PAGE_COUNT || faker.number.int({ min: 10, max: 1000 });
+        const description = faker.lorem.paragraph();
+        const imageUrl = IMAGE_URL || faker.image.url();
 
         await this.inputfieldBOOK_NAME.fill(title);
         await this.inputfieldAUTHOR.fill(author);

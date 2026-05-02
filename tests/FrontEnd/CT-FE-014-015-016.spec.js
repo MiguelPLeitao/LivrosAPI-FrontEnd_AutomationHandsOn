@@ -3,13 +3,15 @@ import Register_page from '../../page_objects_POM/Register_page';
 import LogIn_page from '../../page_objects_POM/LogIn_page';
 import Dashboard_page from '../../page_objects_POM/Dashboard_page';
 import Book_List_Add_page from '../../page_objects_POM/Book_List_Add_page';
+import BookDetails_page from '../../page_objects_POM/BookDetails_page';
 
 
-test('CT-FE-007: Add New Book', async ({ page }) => {
+test('CT-FE-0014-015-016: Create User, Add new Book, Delete new Book, Logout User', async ({ page }) => {
     const registerpage = new Register_page(page);
     const loginpage = new LogIn_page(page);
     const dashboardpage = new Dashboard_page(page);
     const booklistaddpage = new Book_List_Add_page(page);
+    const bookdetailspage = new BookDetails_page(page);
 
 
     // Acesso a página inicial para garantir que estamos em um estado limpo
@@ -26,7 +28,7 @@ test('CT-FE-007: Add New Book', async ({ page }) => {
         await dialog.accept();
     });
 
-    const user3 = await registerpage.Register();
+    const user5 = await registerpage.Register();
 
 
     await expect(page).toHaveURL('http://localhost:3000/login.html');
@@ -37,10 +39,10 @@ test('CT-FE-007: Add New Book', async ({ page }) => {
         await dialog.accept();
     });
 
-    await loginpage.LogIn(user3.email, user3.password);
+    await loginpage.LogIn(user5.email, user5.password);
 
     await expect(page).toHaveURL('http://localhost:3000/dashboard.html');
-    await expect(dashboardpage.headerNAME).toHaveText(user3.name);
+    await expect(dashboardpage.headerNAME).toHaveText(user5.name);
 
 
     //Adicionar novo livro
@@ -72,5 +74,27 @@ test('CT-FE-007: Add New Book', async ({ page }) => {
 
     await expect(books.last().locator("h3")).toHaveText(book_created.title);
     await expect(books.last().locator("p:has-text('Autor')")).toContainText(book_created.author);
+
+    await page.goto('http://localhost:3000/detalhes.html?id=' + book_created.id);
+    await expect(page).toHaveURL('http://localhost:3000/detalhes.html?id=' + book_created.id);
+
+    // Delete new Book
+    page.once('dialog', async dialog => {
+        expect(dialog.message()).toBe('Tem certeza que deseja deletar este livro?');
+        await dialog.accept();
+    });
+
+    await bookdetailspage.Click_DELETE_BOOK();
+
+    // Check book is deleted
+    await page.goto('http://localhost:3000/detalhes.html?id=' + book_created.id);
+    await expect(page).toHaveURL('http://localhost:3000/detalhes.html?id=undefined');
+    await expect(bookdetailspage.headerBOOK_TITLE).toHaveText('undefined');
+    await expect(bookdetailspage.headerBOOK_AUTHOR).toHaveText('Autor: undefined');
+
+
+    // Logout User
+    await bookdetailspage.LogOut();
+    await expect(page).toHaveURL('http://localhost:3000/login.html');
 
 });

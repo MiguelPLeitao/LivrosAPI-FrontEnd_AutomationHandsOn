@@ -26,7 +26,7 @@ test('CT-FE-008: Error Adding Book', async ({ page }) => {
         await dialog.accept();
     });
 
-    const user = await registerpage.Register();
+    const user4 = await registerpage.Register();
 
 
     await expect(page).toHaveURL('http://localhost:3000/login.html');
@@ -37,10 +37,10 @@ test('CT-FE-008: Error Adding Book', async ({ page }) => {
         await dialog.accept();
     });
 
-    await loginpage.LogIn(user.email, user.password);
+    await loginpage.LogIn(user4.email, user4.password);
 
     await expect(page).toHaveURL('http://localhost:3000/dashboard.html');
-    await expect(dashboardpage.headerNAME).toHaveText(user.name);
+    await expect(dashboardpage.headerNAME).toHaveText(user4.name);
 
 
     //Adicionar novo livro tentaiva 1
