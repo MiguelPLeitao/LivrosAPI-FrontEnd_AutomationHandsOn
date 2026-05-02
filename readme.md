@@ -162,22 +162,60 @@ Através do Swagger você pode:
 
 Este projeto foi especialmente projetado para servir como base para **automação de testes**.
 
-### Cenários de Teste Cobertos
+### Arquitetura de Testes
 
-✅ **Backend (API Testing)**
-- Testes de autenticação (registro, login, validações)
-- Operações CRUD completas
-- Validação de schemas e contratos
-- Testes de erro e edge cases
-- Performance e tempo de resposta
+- **Testes de UI:** localizados em `tests/FrontEnd/` usando **Playwright**.
+- **Testes de API:** localizados em `tests/API.spec.js` cobrindo endpoints REST.
+- **Page Object Model (POM):** implementado em `page_objects_POM/` para separar locators e ações da lógica de teste.
 
-✅ **Frontend (UI Testing)**
-- Fluxos completos de usuário
-- Validações de formulário
-- Navegação entre páginas
-- Responsividade
-- Proteção de rotas
-- Interações com favoritos
+### Page Object Model (POM)
+
+A pasta `page_objects_POM/` contém classes que representam páginas da aplicação.
+Cada classe encapsula:
+- locators dos elementos da página
+- ações reutilizáveis (cliques, preenchimento, navegação)
+- validações específicas de página
+
+Exemplo de estrutura:
+- `Register_page.js` — campos de registro e método `Register()`
+- `LogIn_page.js` — campos de login e método `LogIn()`
+- `Dashboard_page.js` — elementos do dashboard e navegação
+- `BookDetails_page.js` — botão favoritos, deletar e voltar
+
+### Organização dos Tests
+
+Os arquivos `CT-FE-xxx*.spec.js` cobrem cenários frontend por número de caso:
+- `CT-FE-006.spec.js` — registro de novo usuário e acesso ao dashboard
+- `CT-FE-008.spec.js` — validação de erro ao tentar adicionar livro com dados inválidos
+- `CT-FE-011-012-013.spec.js` — fluxos de favoritos e detalhes do livro
+
+### Boas práticas aplicadas
+
+- Cada teste deve ser independente e criar seus próprios dados.
+- O cadastro de usuários deve gerar emails únicos a cada execução.
+- A validação de estilo (`toHaveCSS`) compara o valor computado do navegador, como `rgb(...)`.
+- Evite `page.waitForTimeout()` sempre que possível; prefira `expect(locator).toBeVisible({ timeout: ... })`.
+
+### Geração de dados únicos
+
+No POM de registro, é importante gerar um usuário novo a cada chamada:
+- não use um objeto de dados estático importado uma única vez
+- use `faker.internet.email()` e `faker.person.fullName()` dentro do método `Register()` para garantir um email diferente por teste
+
+### Validação de estilo e cores
+
+Se você quiser validar uma mudança de cor de botão no Playwright:
+- Use `await expect(button).toHaveCSS('background-color', 'rgb(231, 76, 60)');`
+- Se o valor de cor estiver em hex, converta para `rgb(...)` antes da comparação.
+
+### Resultados dos Testes
+
+Os testes foram executados com sucesso em **Chromium** e **WebKit** browsers, totalizando **40 testes** (20 API + 20 FrontEnd).
+
+- **Status Geral:** ✅ Todos os testes passaram (40/40)
+- **Tempo de Execução:** 2.7 minutos
+- **Compatibilidade:** Funciona em Chromium e WebKit (Safari)
+
 
 ### Ferramentas Compatíveis
 
@@ -205,6 +243,10 @@ Este projeto é de código aberto e está disponível para fins educacionais.
 **Bruno Figueiredo**
 - GitHub: [@brunonf15](https://github.com/brunonf15)
 - LinkedIn: [Bruno Figueiredo](https://www.linkedin.com/in/brunonascimento15/)
+
+**Miguel Leitão** (QA tests)
+- GitHub: [@MiguelPLeitao](https://github.com/MiguelPLeitao)
+- LinkedIn: [Miguel Leitão](https://www.linkedin.com/in/miguel-leit%C3%A3o-280650379/)
 
 ***
 

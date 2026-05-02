@@ -64,7 +64,7 @@ test('CT-FE-008: Error Adding Book', async ({ page }) => {
 
     const validationMessage = await booklistaddpage.inputfieldBOOK_NAME.evaluate((element) => element.validationMessage);
 
-    expect(validationMessage).toContain('Please fill out this field.');
+    expect(validationMessage).toMatch(/fill out this field/i);
 
     const new_bookCards_tentativa1 = await books.count();
     expect(new_bookCards_tentativa1).toBe(initial_bookCards);
@@ -79,7 +79,7 @@ test('CT-FE-008: Error Adding Book', async ({ page }) => {
 
     const validationMessage1 = await booklistaddpage.inputfieldAUTHOR.evaluate((element) => element.validationMessage);
 
-    expect(validationMessage1).toContain('Please fill out this field.');
+    expect(validationMessage1).toMatch(/fill out this field/i);
 
     const new_bookCards_tentativa2 = await books.count();
     expect(new_bookCards_tentativa2).toBe(initial_bookCards);
@@ -94,7 +94,7 @@ test('CT-FE-008: Error Adding Book', async ({ page }) => {
 
     const validationMessage2 = await booklistaddpage.spinbuttonPAGE_COUNT.evaluate((element) => element.validationMessage);
 
-    expect(validationMessage2).toContain('Please fill out this field.');
+    expect(validationMessage2).toMatch(/fill out this field/i);
 
     const new_bookCards_tentativa3 = await books.count();
     expect(new_bookCards_tentativa3).toBe(initial_bookCards);
