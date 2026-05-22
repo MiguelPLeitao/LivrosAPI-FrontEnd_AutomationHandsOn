@@ -17,12 +17,29 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Install Allure Playwright reporter and helpers (CI only)
+      run: npm install --no-save allure-playwright wait-on allure-commandline
     - name: Start Server
       run: |
         npm start &
         npx wait-on http://localhost:3000
     - name: Run Playwright tests
       run: npx playwright test
+    - name: Generate Allure report
+      if: ${{ always() }}
+      run: |
+        if [ -d "allure-results" ]; then
+          npx allure generate ./allure-results -o ./allure-report --clean || true
+        else
+          echo "No allure-results folder found"
+        fi
+    - name: Upload Allure report
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: allure-report/
+        retention-days: 30
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
